@@ -1,3 +1,84 @@
-// Place all the styles related to the messages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "./color";
+
+.main {
+    height: calc(100vh - 80px);  // vhは「viewport height」の略で、viewport の高さ（ブラウザの高さ）に対する指定です。100vhで表示しているスマホやPCのウィンドウサイズの100%という意味になります 
+    .chat {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 20px;
+        height: calc(100vh - 160px);
+        background-color: $back-color;
+        .chat-container {
+            width: 100%;
+            .message-box {
+                display: flex;
+                width: 90%;
+                background-color: white;
+                margin: 10px 10px;
+                margin-left: auto;
+                margin-right: auto;
+                .message-block {
+                    float: left;
+                    height: auto;
+                    width: 80%;
+                    margin: 20px 0px;
+                    .message-info {
+                        padding: 10px 10px 10px 10px;   
+                    }
+                    .message-content {
+                        padding: 0px 10px 10px 5px;;
+                    }
+                }
+                .message-post {
+                    float: right;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-top: auto;
+                    margin-bottom: auto;
+                    ul {
+                        margin: 5px 5px;
+                        li {
+                            background-color: $button-color;
+                            border-radius: 5px;
+                            margin: 10px 10px;
+                            height: auto;
+                            a {
+                                padding: .7em 2em;
+                                color: $main-color;
+                                font-weight: bold;
+                                text-decoration: none;
+                                width: 100%;
+                                display: block;
+                            }
+                            &:hover {
+                                opacity: 0.7;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .chat-form {
+        height: 80px;
+        padding: 20px;
+        background-color: $sub-color;
+        form {
+            input {
+                border-radius: 3px;
+                height: 50px;
+                .edit-form {
+                    height: 50px;
+                    width: 80%;
+                }
+                .submit-button {
+                    width: 30em;
+                    height: 20px;
+                    float: right;
+                }
+            }
+        }
+    }
+}

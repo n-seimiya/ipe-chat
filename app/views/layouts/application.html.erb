@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Myapp</title>
+    <title>ipe-chat</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,20 @@
   </head>
 
   <body>
+    <header>
+      <div>
+        <a href="/">
+          <img src="/assets/logo_grey.png" alt="ipeロゴ">
+        </a>
+      </div>
+
+      <ul>
+        <li><a href="#">SIGNUP</a></li>
+        <li><a href="#">LOGIN</a></li>
+        <li><a href="#">LOGOUT</a></li>
+      </ul>
+    </header>  
+
     <%= yield %>
   </body>
 </html>
