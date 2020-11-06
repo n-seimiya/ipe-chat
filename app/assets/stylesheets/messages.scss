@@ -69,11 +69,14 @@
             input {
                 border-radius: 3px;
                 height: 50px;
+                font-weight: bold;
+                text-decoration: none;
                 .edit-form {
                     height: 50px;
                     width: 80%;
                 }
                 .submit-button {
+                    color: $main-color;
                     width: 30em;
                     height: 20px;
                     float: right;
