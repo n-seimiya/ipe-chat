@@ -66,22 +66,27 @@
         padding: 20px;
         background-color: $sub-color;
         form {
-            input {
-                border-radius: 3px;
+            input[type=text] {
+                display: inline-block;
                 height: 50px;
-                font-weight: bold;
-                text-decoration: none;
-                .edit-form {
-                    height: 50px;
-                    width: 80%;
+                width: 80%;
+                margin: 0px 10px;
+                margin-top: auto;
+                margin-bottom: auto;
                 }
-                .submit-button {
-                    color: $main-color;
-                    width: 30em;
-                    height: 20px;
-                    float: right;
+            input[type=submit] {
+                display: inline-block;
+                color: $main-color;
+                background-color: wheat;
+                float: right;
+                border-radius: 5px;
+                font-weight: bold;
+                font-size: auto;
+                text-decoration: none;
+                margin: 10px 20px;
+                padding: 5px 5px;
+                height: auto;
                 }
             }
-        }
     }
 }
