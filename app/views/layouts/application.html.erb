@@ -22,7 +22,11 @@
         <li><a href="#">LOGIN</a></li>
         <li><a href="#">LOGOUT</a></li>
       </ul>
-    </header>  
+    </header>
+
+    <% if notice %>
+      <p class="flash"><%= notice %></p>
+    <% end %>
 
     <%= yield %>
   </body>
