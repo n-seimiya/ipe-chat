@@ -1,0 +1,18 @@
+<div class="template-main">
+    <div class="template-container">
+        <div class="title">
+            Login
+        </div>
+        <%= form_for(:session, url: login_path) do |f| %>
+
+            <%= f.label :email %>
+            <%= f.text_field :email, placeholder: "emailアドレスを入力してください" %>
+
+            <%= f.label :password %>
+            <%= f.password_field :password, placeholder: "パスワードを入力してください" %>
+
+            <%= f.submit 'Login' %>
+        <% end %>
+        <a class="button2" href="/signup">SIGNUP</a>
+    </div>
+</div>

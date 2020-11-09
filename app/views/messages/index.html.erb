@@ -15,12 +15,14 @@
                         </div>
                         <div class="message-post">
                             <ul>
-                                <li>
-                                    <%= link_to "edit", messages_edit_path(message.id) %>
-                                </li>
-                                <li>
-                                    <%= link_to "delete", messages_delete_path(message.id), method: :delete %>
-                                </li>
+                                <% if message.user_id == current_user.id %>
+                                    <li>
+                                        <%= link_to "edit", messages_edit_path(message.id) %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "delete", messages_delete_path(message.id), method: :delete %>
+                                    </li>
+                                <% end %>
                             </ul>
                         </div> 
                     </div>

@@ -15,30 +15,33 @@ class MessagesController < ApplicationController
 
     def edit
         @message = Message.find(params[:id])
+        unless @message.user_id == current_user.id
+            redirect_to root_path, notice: "不正なアクセスです"
+        end
     end
 
     def update
         @message = Message.find(params[:id])
-        if @message.update(update_params)
-            redirect_to root_path, notice: 'メッセージを更新しました'
+        if @message.user_id == current_user.id && @message.update(update_params)
+            redirect_to root_path, notice: 'メッセージを変更しました'
         else
-            redirect_to root_path, notixe: 'メッセージの更新に失敗しました'
+            redirect_to root_path, notice: 'メッセージの変更に失敗しました'
         end
     end
 
     def destroy
         @message = Message.find(params[:id])
-        if @message.destroy
+        if @message.user_id == current_user.id && @message.destroy
             redirect_to root_path, notice: '削除しました'
         else
-            redirect_to root_path, notice: 'メッセージの削除に失敗しました'
+            redirect_to root_path, notice: '不正なアクセスです'
         end
     end
 
     private
 
         def create_params
-            params.require(:message).permit(:content).merge(user_id: 1)
+            params.require(:message).permit(:content).merge(user_id: current_user.id)
         end
 
         def update_params
