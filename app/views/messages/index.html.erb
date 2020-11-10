@@ -40,11 +40,11 @@
     </div>
 
     <div class="chat-form">
-        <%= form_with model: @message, url: messages_create_path, id: "new_message", local: true do |f| %>
+        <%= form_with model: @message, url: messages_create_path, id: "new_message" do |f| %>
             <%= f.text_field :content, id: "chat-form" %>
-            <%= f.submit "SEND" %>
+            <%= f.submit "SEND", id: "submit-button" %>
         <% end %>
     </div>
 
-    <div id="counter"></div>
+    <%# <div id="counter"></div> %>
 </div>

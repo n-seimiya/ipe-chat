@@ -5,9 +5,12 @@ class MessagesController < ApplicationController
     end
 
     def create
-        message = Message.new(create_params)
-        if message.save
-            redirect_to root_path, notice: 'メッセージを送信しました'
+        @message = Message.new(create_params)
+        if @message.save
+            respond_to do |format|
+                format.html { redirect_to root_path, notice: 'メッセージを送信しました' }
+                format.json
+            end
         else
             redirect_to root_path, notice: 'メッセージの送信に失敗しました'
         end

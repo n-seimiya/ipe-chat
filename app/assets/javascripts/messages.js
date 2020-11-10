@@ -13,43 +13,100 @@ window.onload = function() {
     }
 };
 
-$(function(){
-    var boxes = $('.message-box')
-    boxes.each(function(i,box){
-        $(box).hover(function(){
-            var content = $(box).find('.message-content')
-            content.animate({fontSize : '24px'}, 500);
-        }, function(){
-            var content = $(box).find('.message-content')
-            content.animate({fontSize : '16px'}, 500);
+// $(function(){
+//     var boxes = $('.message-box')
+//     boxes.each(function(i,box){
+//         $(box).hover(function(){
+//             var content = $(box).find('.message-content')
+//             content.animate({fontSize : '24px'}, 500);
+//         }, function(){
+//             var content = $(box).find('.message-content')
+//             content.animate({fontSize : '16px'}, 500);
+//         })
+//     })
+// });
+
+// $(function() {
+//     var button = $('button')
+//     function clickFunc() {
+//         $(".top-icon").toggle()
+//     };
+//     button.on("click", clickFunc)
+// });
+
+// $(function() {
+//     var form = $("#chat-form")
+//     form.keyup(function() {
+//         var count = $(this).val().length;
+//         $("#counter").text(count + "文字");
+//         if (count == 0 ) {
+//             $("#counter").empty();
+//         }else if (count > 10){
+//             $('#counter').css('color', 'red');
+//         }else{
+//             $('#counter').css('color', 'white');
+//         };
+//     });
+// });
+
+$(function() {
+    function buildHTML(message){
+        var content = (message.content !== null) ? `${message.content}`: "";
+        var name = (message.user_name !== null) ? `${message.user_name}`: "";
+        var date = (message.date !== null) ? `${message.date}`: "";
+        var id = (message.id !== null) ? `${message.id}`: "";
+
+        var html = `<div class="message-box">
+                        <div class="message-block">
+                            <p class="message-info">
+                                ${name}
+                                <span>
+                                ${date}
+                                </span>
+                            </p>
+                            <p class="message-content">${content}</p>
+                        </div>
+                        <div class="message-post">
+                            <ul>
+                                <li>
+                                    <a href="/messages/${id}/edit">edit</a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" data-method="delete" href="/messages/${id}/delete">delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>`
+        return html;
+    }
+
+    $('#new_message').on('submit', function(e) {
+        e.preventDefault();
+        var messageContent = new FormData(this);
+        console.log(this);
+        var url = "/messages/create";
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: messageContent,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
         })
-    })
-});
 
-$(function() {
-    var button = $('button')
-    function clickFunc() {
-        $(".top-icon").toggle()
-    };
-    button.on("click", clickFunc)
-});
+        .done(function(message) {
+            var html = buildHTML(message);
+            $('.chat-container').append(html);
+            // $('#submit-button').on('submit',function(){
+            $('#chat-form').val('');  
+            // });
+            $('.chat-container').animate({ scrollTop: $('.chat-container')[0].scrollHeight});
+        })
 
-$(function() {
-    console.log('s')
-    var form = $("#chat-form")// ユーザーが入力するフォーム（inputタグ）のidを使ってエレメントを取得してください
-    form.keyup(function() {  // 〇〇に適切なコードを記述してフォームに文字が入力されることでイベントが発火する処理を作成してください
-        console.log('test');
-        var count = $(this).val().length;     // $(this)を使って、フォームに入力された文字の数を取得して変数に格納してください
-        // 先ほど作成した丸いdiv要素の中に「〇文字」と表示されるコードを記述してください
-        $("#counter").text(count + "文字");
-        console.log(count);
-        // 条件分岐文を使って、条件に応じて丸いdiv要素のcolorプロパティを変更させるコードを記述してください
-        if (count == 0 ) {
-            $("#counter").empty();
-        }else if (count > 10){
-            $('#counter').css('color', 'red');
-        }else{
-            $('#counter').css('color', 'white');
-        };
+        .fail(function() {
+            alert('error');
+        })
+        return false;
     });
-});
+})
