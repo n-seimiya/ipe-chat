@@ -20,7 +20,11 @@
                                         <%= link_to "edit", messages_edit_path(message.id) %>
                                     </li>
                                     <li>
-                                        <%= link_to "delete", messages_delete_path(message.id), method: :delete %>
+                                        <a href="#" class="delete-btn" data-id=<%= message.id %>>delete</a>
+                                        <%= form_for(message, url: messages_delete_path(message.id), method: :delete, 
+                                            html: { id: "form_#{message.id}", class: "delete-form" }) do |f| %>
+                                            <%= f.submit "delete" %>
+                                        <% end %>
                                     </li>
                                 <% end %>
                             </ul>
@@ -41,4 +45,6 @@
             <%= f.submit "SEND" %>
         <% end %>
     </div>
+
+    <div id="counter"></div>
 </div>
