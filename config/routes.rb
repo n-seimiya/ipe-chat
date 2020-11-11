@@ -13,5 +13,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     get '/messages', to: 'messages#index', defaults: { format: 'json' }
+    post '/messages', to: 'messages#create', defaults: {format: 'json'}
   end
 end

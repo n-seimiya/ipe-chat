@@ -51,6 +51,7 @@ window.onload = function() {
 
 $(function() {
     function buildHTML(message){
+        console.log(message);
         var content = (message.content !== null) ? `${message.content}`: "";
         var name = (message.user_name !== null) ? `${message.user_name}`: "";
         var date = (message.date !== null) ? `${message.date}`: "";
@@ -84,8 +85,7 @@ $(function() {
     $('#new_message').on('submit', function(e) {
         e.preventDefault();
         var messageContent = new FormData(this);
-        console.log(this);
-        var url = "/messages/create";
+        var url = "api/messages#create";
 
         $.ajax({
             url: url,
@@ -98,9 +98,10 @@ $(function() {
 
         .done(function(message) {
             var html = buildHTML(message);
+            console.log(html);
             $('.chat-container').append(html);
             // $('#submit-button').on('submit',function(){
-            $('#chat-form').val('');  
+            $('#chat-form').val('');
             // });
             $('.chat-container').animate({ scrollTop: $('.chat-container')[0].scrollHeight});
         })
