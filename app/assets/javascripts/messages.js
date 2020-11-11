@@ -55,8 +55,18 @@ $(function() {
         var name = (message.user_name !== null) ? `${message.user_name}`: "";
         var date = (message.date !== null) ? `${message.date}`: "";
         var id = (message.id !== null) ? `${message.id}`: "";
+        var btn = (message.user_id == message.current_user_id) ? `<div class="message-post">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="/messages/${id}/edit">edit</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a rel="nofollow" data-method="delete" href="/messages/${id}/delete">delete</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>` : "";
 
-        var html = `<div class="message-box">
+        var html = `<div class="message-box" data-message-id="${id}">
                         <div class="message-block">
                             <p class="message-info">
                                 ${name}
@@ -66,16 +76,7 @@ $(function() {
                             </p>
                             <p class="message-content">${content}</p>
                         </div>
-                        <div class="message-post">
-                            <ul>
-                                <li>
-                                    <a href="/messages/${id}/edit">edit</a>
-                                </li>
-                                <li>
-                                    <a rel="nofollow" data-method="delete" href="/messages/${id}/delete">delete</a>
-                                </li>
-                            </ul>
-                        </div>
+                        ${btn}
                     </div>`
         return html;
     }
@@ -109,4 +110,40 @@ $(function() {
         })
         return false;
     });
+
+    var reloadMessages = function(message){
+        if ($(window.location).attr('pathname') == '/' || $(window.location).attr('pathname') == '/messages/index'){
+            
+            var last_message_id = $('.message-box:last').data('message-id');
+
+            var url = "api/messages#index"
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    last_message: last_message_id,
+                }
+            })
+
+            .done(function(messages){
+                var html = '';
+                $(messages).each(function(i, message){
+                    html = buildHTML(message);
+                    $('.chat-container').append(html);
+                    $('.chat-container').animate({ scrollTop: $('.chat-container')[0].scrollHeight});
+                })
+            })
+
+            .fail(function(){
+                alert('error');
+            })
+
+        } else {
+            clearInterval
+        }
+    }
+    setInterval(reloadMessages, 5000);
 })
+
